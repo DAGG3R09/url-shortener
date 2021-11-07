@@ -11,7 +11,7 @@ tags:
     description: "Github Link"
     url: "github.com/DAGG3R09/url-shortener"
 schemes:
-- "https"
+- "http"
 
 paths:
   /url-shortener:

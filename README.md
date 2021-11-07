@@ -23,7 +23,7 @@ Some Make Commands:
 ### APIs
 Please check out OpenAPI spec file: apis.yaml
 OR 
-visit: [openapi-spec](https://petstore.swagger.io/?url=https://github.com/DAGG3R09/url-shortener/apis.yaml)
+visit: [openapi-spec](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/DAGG3R09/url-shortener/main/apis.yaml)
 
 
 ###### Author
