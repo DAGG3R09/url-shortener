@@ -1,0 +1,81 @@
+swagger: "2.0"
+info:
+  description: "This is simple URL shortener developed in Go"
+  version: "1.0.0"
+  title: "URL Shortener"
+basePath: "/"
+tags:
+- name: "shortener"
+  description: "URL shortener APIs"
+  externalDocs:
+    description: "Github Link"
+    url: "github.com/DAGG3R09/url-shortener"
+schemes:
+- "https"
+
+paths:
+  /url-shortener:
+    post:
+      tags:
+      - "shortener"
+      summary: "Shortens given URL"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "URL to be shortened"
+        required: true
+        schema:
+          type: object
+          required: 
+            - url
+          properties:
+            url:
+              type: string
+          example:
+            url: "https://google.com"
+          
+      responses:
+        "400":
+          description: "Invalid input"
+        "201":
+          description: "Created shortened URL"
+          schema:
+            type: object
+            properties:
+              original_url: 
+                type: string
+              short_url: 
+                type: string
+                
+          examples:
+            {
+              original_url: "https://google.com",
+              short_url: "muv8X"
+            }
+  
+  /url-shortener/{short_url}:
+    get:
+      tags:
+      - "shortener"
+      summary: redirects to original URL
+      parameters:
+        - in: path
+          name: short_url
+          type: string
+          description: "short-url code created by application"
+          required: true
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      
+      responses:
+        "404":
+          description: "URL not registered with applicaiton"
+        "302":
+          description: "redirect to registered long URL"
