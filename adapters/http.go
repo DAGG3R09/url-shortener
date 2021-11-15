@@ -4,12 +4,15 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 
 	"github.com/DAGG3R09/url-shortener/service"
 )
 
 func NewHTTPRouter(s *service.URLShortnerService) *echo.Echo {
 	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
+
 	e.HTTPErrorHandler = HttpErrorHandler
 	e.GET("/", running)
 
@@ -21,7 +24,9 @@ func addUrlShortenerRoutes(e *echo.Echo, s *service.URLShortnerService) {
 	eg := e.Group(shortnerPrefix)
 
 	eg.POST("/", shortenURL(s))
+	eg.POST("", shortenURL(s))
 	eg.GET("/:url", redirectURLHandler(s))
+	eg.GET("/:url/", redirectURLHandler(s))
 }
 
 func running(ctx echo.Context) error {
